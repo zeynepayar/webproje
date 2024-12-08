@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Paneli - Ekip Üyeleri</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Ekip Üyeleri Yönetimi</h1>
+
+        <!-- Yeni Ekip Üyesi Ekleme Butonu -->
+        <div class="d-flex justify-content-end mb-3">
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addMemberModal">Yeni Üye Ekle</button>
+        </div>
+
+        <!-- Ekip Üyeleri Tablosu -->
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                   
+                    <th>İsim</th>
+                    <th>Pozisyon</th>
+                    <th>Açıklama</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Örnek bir satır -->
+                <tr>
+                    <td>1</td>
+                  
+                    <td>Nergis Kaya</td>
+                    <td>Müşteri İlişkileri Uzmanı</td>
+                    <td>Nergis, müşterilerle sıcak iletişim kurar...</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editMemberModal">Düzenle</button>
+                        <button class="btn btn-danger btn-sm">Sil</button>
+                    </td>
+                </tr>
+                <!-- Diğer üyeler de burada listelenebilir -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Yeni Üye Ekleme Modal -->
+    <div class="modal fade" id="addMemberModal" tabindex="-1" aria-labelledby="addMemberModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addMemberModalLabel">Yeni Ekip Üyesi Ekle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="memberName" class="form-label">İsim</label>
+                            <input type="text" class="form-control" id="memberName" placeholder="Ekip üyesi ismini girin">
+                        </div>
+                        <div class="mb-3">
+                            <label for="memberPosition" class="form-label">Pozisyon</label>
+                            <input type="text" class="form-control" id="memberPosition" placeholder="Pozisyon girin">
+                        </div>
+                        <div class="mb-3">
+                            <label for="memberDescription" class="form-label">Açıklama</label>
+                            <textarea class="form-control" id="memberDescription" rows="3" placeholder="Açıklama girin"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="memberPhoto" class="form-label">Fotoğraf</label>
+                            <input type="file" class="form-control" id="memberPhoto">
+                        </div>
+                        <button type="submit" class="btn btn-success">Ekle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Üye Düzenleme Modal -->
+    <div class="modal fade" id="editMemberModal" tabindex="-1" aria-labelledby="editMemberModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editMemberModalLabel">Ekip Üyesini Düzenle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="editMemberName" class="form-label">İsim</label>
+                            <input type="text" class="form-control" id="editMemberName" placeholder="Ekip üyesi ismini güncelleyin">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editMemberPosition" class="form-label">Pozisyon</label>
+                            <input type="text" class="form-control" id="editMemberPosition" placeholder="Pozisyon güncelleyin">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editMemberDescription" class="form-label">Açıklama</label>
+                            <textarea class="form-control" id="editMemberDescription" rows="3" placeholder="Açıklama güncelleyin"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editMemberPhoto" class="form-label">Fotoğraf</label>
+                            <input type="file" class="form-control" id="editMemberPhoto">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form ve Düzenle Butonu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .btn-submit, .btn-edit {
+            width: 100%;
+            padding: 10px;
+            background-color: #218838;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn-submit:hover, .btn-edit:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .display-text {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Metin Girişi Formu</h1>
+        <form id="textForm">
+            <!-- Metin Alanı -->
+            <label for="inputText">Metin Girin:</label>
+            <input type="text" class="form-control" id="inputText" name="inputText" placeholder="Metninizi buraya girin" required>
+
+            <!-- Hata Mesajı -->
+            <div id="errorMessage" class="error"></div>
+
+            <!-- Düzenle Butonu -->
+            <button type="submit" class="btn-submit">Düzenle</button>
+        </form>
+
+        <!-- Girilen metni görüntüleme alanı -->
+        <div id="displayText" class="display-text"></div>
+    </div>
+
+    <script>
+        // Sayfa yüklendiğinde localStorage'dan metni al ve ekrana yazdır
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const storedText = localStorage.getItem('userText');
+            if (storedText) {
+                document.getElementById('displayText').textContent = storedText;
+            }
+        });
+
+        document.getElementById('textForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Formun sayfayı yenilemesini engelle
+
+            // Form verilerini al
+            const inputText = document.getElementById('inputText').value;
+
+            // Hata kontrolü
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = ""; // Önceki hata mesajını temizle
+
+            // Boş alan kontrolü
+            if (!inputText) {
+                errorMessage.textContent = "Lütfen metin girin.";
+                return;
+            }
+
+            // Girilen metni localStorage'a kaydet
+            localStorage.setItem('userText', inputText);
+
+            // Veriyi işleme (console.log ile)
+            console.log('Girilen Metin:', inputText);
+
+            // Başarılı işlem mesajı
+            alert("Metin başarıyla alındı!");
+
+            // Sayfa yeniden yüklendiğinde metin ekrana yansıyacak
+            document.getElementById('displayText').textContent = inputText;
+
+            // Formu sıfırla
+            document.getElementById('textForm').reset();
+        });
+    </script>
+</body>
+</html>

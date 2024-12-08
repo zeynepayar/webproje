@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>Messages</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <!-- style css -->
+      <link rel="stylesheet" href="css/style.css">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="css/responsive.css">
+      <style>
+         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+         }
+         h3 {
+            text-align: center;
+            color: #333;
+            margin: 30px 0;
+         }
+         #message-list {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+         }
+         .message-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+         }
+         .message-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+         }
+         .message-item p {
+            margin: 10px 0;
+            color: #555;
+            font-size: 16px;
+         }
+         .message-item p strong {
+            color: #333;
+         }
+         .message-item .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+         }
+         .message-item .message-header .message-name {
+            font-weight: bold;
+            color: #007bff;
+         }
+         .message-item .message-header .message-date {
+            color: #888;
+            font-size: 14px;
+         }
+      </style>
+   </head>
+   <body>
+      <h3>Your Messages</h3>
+      <div id="message-list">
+         <!-- Messages will be dynamically loaded here -->
+      </div>
+
+      <script>
+         // Function to display messages saved in localStorage
+         function displayMessages() {
+            const savedData = JSON.parse(localStorage.getItem('contactData'));
+
+            // Check if there's saved data in localStorage
+            if (savedData) {
+               const messageList = document.getElementById('message-list');
+               
+               const messageItem = document.createElement('div');
+               messageItem.classList.add('message-item');
+               
+               const currentDate = new Date().toLocaleString();
+               
+               messageItem.innerHTML = `
+                  <div class="message-header">
+                     <span class="message-name">${savedData.name}</span>
+                     <span class="message-date">${currentDate}</span>
+                  </div>
+                  <p><strong>Phone:</strong> ${savedData.phone}</p>
+                  <p><strong>Email:</strong> ${savedData.email}</p>
+                  <p><strong>Message:</strong> ${savedData.message}</p>
+               `;
+               
+               messageList.appendChild(messageItem);
+            } else {
+               const messageList = document.getElementById('message-list');
+               messageList.innerHTML = '<p style="text-align:center; color: #888;">No messages found.</p>';
+            }
+         }
+
+         // Call the displayMessages function when the page is loaded
+         window.onload = displayMessages;
+      </script>
+   </body>
+</html>
