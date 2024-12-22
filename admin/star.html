@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Kampanya Yönetimi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            margin-top: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-control {
+            margin-top: 10px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 10px;
+            background-color: #218838;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Haftanın Kampanyasını Yönet</h1>
+        <form id="adminCampaignForm">
+            <!-- Kampanya Resmi -->
+            <label for="campaignImage">Kampanya Resmini Seçin:</label>
+            <input type="file" class="form-control" id="campaignImage" name="campaignImage" accept="image/*" required>
+
+            <!-- Kampanya Başlığı -->
+            <label for="campaignTitle">Kampanya Başlığı:</label>
+            <input type="text" class="form-control" id="campaignTitle" name="campaignTitle" placeholder="Kampanya Başlığını buraya girin" required>
+
+            <!-- Kampanya Açıklaması -->
+            <label for="campaignDescription">Kampanya Açıklaması:</label>
+            <textarea class="form-control" id="campaignDescription" name="campaignDescription" rows="4" placeholder="Kampanya açıklamasını buraya girin" required></textarea>
+
+            <!-- Hata Mesajı -->
+            <div id="errorMessage" class="error"></div>
+
+            <!-- Kampanyayı Kaydet Butonu -->
+            <button type="submit" class="btn-submit">Kampanyayı Kaydet</button>
+        </form>
+    </div>
+
+    <script>
+        // Kampanyayı kaydetme işlemi
+        document.getElementById('adminCampaignForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Formun sayfayı yenilemesini engelle
+
+            // Form verilerini al
+            const campaignImage = document.getElementById('campaignImage').files[0];
+            const campaignTitle = document.getElementById('campaignTitle').value;
+            const campaignDescription = document.getElementById('campaignDescription').value;
+
+            // Hata kontrolü
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = ""; // Önceki hata mesajını temizle
+
+            // Boş alan kontrolü
+            if (!campaignImage || !campaignTitle || !campaignDescription) {
+                errorMessage.textContent = "Lütfen tüm alanları doldurun.";
+                return;
+            }
+
+            // Kampanya resmini önizleme
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                // Resmin URL'si alındığında, kampanyayı ana sitede göstermek için localStorage'a kaydedebiliriz.
+                localStorage.setItem('campaignImage', e.target.result);
+                localStorage.setItem('campaignTitle', campaignTitle);
+                localStorage.setItem('campaignDescription', campaignDescription);
+
+                // Başarılı işlem mesajı
+                alert("Kampanya başarıyla kaydedildi!");
+
+                // Formu sıfırla
+                document.getElementById('adminCampaignForm').reset();
+            };
+
+            // Resim dosyasını okuma
+            reader.readAsDataURL(campaignImage);
+        });
+    </script>
+</body>
+
+</html>
